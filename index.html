@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Kawthr Bawazir — AI Engineer, Front-End Developer and Scrum Master. Projects: Nama Al-Ma'rifa, Image AI, Hajj Data and a spoof-aware speech age verification system.">
+<title>Kawthr Bawazir Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single left-aligned column; each project is a two-part row (facts | evidence), stacking on phones */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --ink: #17212e;
+  --muted: #5a6676;
+  --line: #d9dfe6;
+  --accent: #1f5fae;
+  --accent-soft: #e3ecf8;
+  --ai: #6a3fb0;      --ai-soft: #efe8fa;
+  --fe: #0f7a6c;      --fe-soft: #e0f3ef;
+  --pm: #a8570f;      --pm-soft: #fbeedf;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11161d; --surface: #18202a; --ink: #e6ebf1; --muted: #9aa6b5; --line: #2a3441;
+  --accent: #7fb0f0; --accent-soft: #1d2b3e;
+  --ai: #b99bf0; --ai-soft: #2a2140; --fe: #5fcfbd; --fe-soft: #15302c; --pm: #f0b070; --pm-soft: #3a2a18;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #11161d; --surface: #18202a; --ink: #e6ebf1; --muted: #9aa6b5; --line: #2a3441;
+  --accent: #7fb0f0; --accent-soft: #1d2b3e;
+  --ai: #b99bf0; --ai-soft: #2a2140; --fe: #5fcfbd; --fe-soft: #15302c; --pm: #f0b070; --pm-soft: #3a2a18;
+  color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 56px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.12; }
+
+/* Hero */
+.hero { display: grid; gap: 20px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+.eyebrow { font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.hero h1 { font-size: clamp(40px, 7vw, 68px); font-weight: 700; letter-spacing: -.02em; }
+.roles { display: flex; flex-wrap: wrap; gap: 8px; }
+.lede { max-width: 62ch; font-size: 18px; color: var(--muted); margin: 0; }
+.lede strong { color: var(--ink); font-weight: 600; }
+.wave { width: 100%; height: 56px; display: block; }
+.contact-row { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; font-size: 15px; }
+.email { font-family: var(--font-mono); font-size: 14px; user-select: all; }
+.copy { font: 500 13px var(--font-body); background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.copy:hover { border-color: var(--accent); }
+
+/* Tags */
+.tag { display: inline-flex; align-items: center; gap: 6px; font: 500 13px var(--font-body); padding: 3px 10px; border-radius: 999px; }
+.tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.t-ai { color: var(--ai); background: var(--ai-soft); }
+.t-fe { color: var(--fe); background: var(--fe-soft); }
+.t-pm { color: var(--pm); background: var(--pm-soft); }
+
+/* Filter */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 36px 0 8px; }
+.filters span { font-size: 14px; color: var(--muted); margin-right: 4px; }
+.chip { font: 500 14px var(--font-body); border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* Projects */
+.projects { display: grid; gap: 0; }
+.project { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 36px; padding: 44px 0; border-bottom: 1px solid var(--line); }
+.facts { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.facts h2 { font-size: clamp(26px, 3.4vw, 34px); font-weight: 700; letter-spacing: -.01em; }
+.sub { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.facts p { margin: 0; max-width: 60ch; }
+.role-list { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.stack code { font-family: var(--font-mono); font-size: 12.5px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; }
+.note { font-size: 13.5px; color: var(--muted); }
+
+.evidence { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.shot { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.shot-bar { display: flex; gap: 6px; align-items: center; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+.shot-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.shot-bar b { font: 500 12px var(--font-mono); color: var(--muted); margin-left: 8px; }
+.shot-body { aspect-ratio: 16 / 9; max-width: 100%; display: grid; place-items: center; text-align: center; padding: 20px;
+  color: var(--muted); font-size: 14px;
+  background: repeating-linear-gradient(-45deg, transparent 0 12px, var(--accent-soft) 12px 13px); }
+.shot-body img { width: 100%; height: 100%; object-fit: cover; }
+.shot-img { display: block; }
+.shot-img img { display: block; width: 100%; height: auto; }
+
+/* Pipeline diagrams */
+.flow { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+.flow-title { font: 500 12px var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.steps { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.step { flex: 1 1 120px; min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; background: var(--bg); }
+.step b { display: block; font-size: 14px; font-weight: 600; }
+.step span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.step.key { border-color: var(--ai); background: var(--ai-soft); }
+.arrow { align-self: center; color: var(--muted); font-family: var(--font-mono); font-size: 14px; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding: 48px 0 8px; }
+.skills h3 { font-size: 20px; margin-bottom: 10px; display: flex; gap: 8px; align-items: center; }
+.skills ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; color: var(--muted); font-size: 15px; }
+.foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+
+@media (max-width: 820px) {
+  .project { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 36px 0; }
+  .skills { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .wrap { padding-block: 36px 56px; }
+}
+@media (max-width: 480px) { .arrow { display: none; } .step { flex-basis: 100%; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Portfolio · Makkah, Saudi Arabia</div>
+    <h1>Kawthr Bawazir</h1>
+    <div class="roles">
+      <span class="tag t-ai">AI Engineer</span>
+      <span class="tag t-fe">Front-End Developer</span>
+      <span class="tag t-pm">Scrum Master</span>
+    </div>
+    <p class="lede">AI graduate from <strong>Umm Al-Qura University (GPA 4.00/4.00)</strong>. I build speech and vision models, connect LLM features to real products, and write the React interfaces people use them through. At <strong>SeedLab</strong> I also lead the team as Scrum Master and supervise university co-op trainees.</p>
+    <canvas class="wave" id="wave" aria-hidden="true"></canvas>
+    <div class="contact-row">
+      <span class="email" id="email">kawthrbw1@gmail.com</span>
+      <button class="copy" id="copyBtn" type="button">Copy email</button>
+      <a href="https://sa.linkedin.com/in/kawthr-bawazir-697583272" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/ArwaFadaaq/Robust-Spoof-Aware-Speech-Based-Age-Verification-for-Online-Voice-Chat" target="_blank" rel="noopener">Graduation project on GitHub</a>
+    </div>
+  </header>
+
+  <div class="filters" role="group" aria-label="Filter projects">
+    <span>Show work in</span>
+    <button class="chip" type="button" data-f="all" aria-pressed="true">Everything</button>
+    <button class="chip" type="button" data-f="ai" aria-pressed="false">AI</button>
+    <button class="chip" type="button" data-f="fe" aria-pressed="false">Front-End</button>
+    <button class="chip" type="button" data-f="pm" aria-pressed="false">Management</button>
+  </div>
+
+  <main class="projects">
+
+    <!-- Nama -->
+    <article class="project" data-k="ai fe pm">
+      <div class="facts">
+        <div class="sub">SeedLab · Employee-training platform</div>
+        <h2>Nama Al-Ma’rifa</h2>
+        <div class="roles"><span class="tag t-ai">AI</span><span class="tag t-fe">Front-End</span><span class="tag t-pm">Management</span></div>
+        <p>A corporate training platform for a government client. Employees learn through courses and videos, with assessment questions generated from the content.</p>
+        <ul class="role-list">
+          <li>Built the AI modules: a video analyzer that writes lesson descriptions and suggests learning outcomes from the video, and an LLM question generator (Qwen) that suggests quiz questions from the lesson content.</li>
+          <li>Deployed both on GPU Hugging Face Spaces and connected them to the Django backend through an asynchronous worker queue.</li>
+          <li>Built front-end interfaces in React.</li>
+          <li>Led project management for the platform.</li>
+        </ul>
+        <div class="stack"><code>Qwen</code><code>Hugging Face Spaces</code><code>Docker</code><code>Django</code><code>React</code></div>
+        <p class="note">Production code is confidential. Happy to walk through the design in an interview.</p>
+      </div>
+      <div class="evidence">
+        <figure class="shot" style="margin:0">
+          <div class="shot-bar"><i></i><i></i><i></i><b>Landing page</b></div>
+          <a class="shot-img" href="img/nama-home.webp" target="_blank" rel="noopener"><img src="img/nama-home.webp" alt="Nama Al-Ma'rifa landing page in Arabic" width="1600" height="860" loading="lazy"></a>
+        </figure>
+        <figure class="shot" style="margin:0">
+          <div class="shot-bar"><i></i><i></i><i></i><b>Organizations analytics dashboard</b></div>
+          <a class="shot-img" href="img/nama-dash.webp" target="_blank" rel="noopener"><img src="img/nama-dash.webp" alt="Admin dashboard with totals for organizations, active organizations, linked courses and issued certificates, plus bar charts" width="1600" height="860" loading="lazy"></a>
+        </figure>
+        <div class="flow">
+          <div class="flow-title">AI feature architecture</div>
+          <div class="steps">
+            <div class="step"><b>Django backend</b><span>Admin uploads course content</span></div>
+            <div class="arrow">→</div>
+            <div class="step"><b>Task queue</b><span>Job saved as queued</span></div>
+            <div class="arrow">→</div>
+            <div class="step"><b>AI worker</b><span>Pulls jobs, calls the Spaces</span></div>
+            <div class="arrow">→</div>
+            <div class="step key"><b>GPU Spaces</b><span>Question generator (Qwen) · Video analyzer</span></div>
+          </div>
+        </div>
+        <figure class="shot" style="margin:0">
+          <div class="shot-bar"><i></i><i></i><i></i><b>Video analyzer · suggested learning outcomes</b></div>
+          <a class="shot-img" href="img/nama-ai-video.webp" target="_blank" rel="noopener"><img src="img/nama-ai-video.webp" alt="Lesson editor with AI buttons to write the description and suggest what trainees will learn, and a panel of AI suggestions based on the video content" width="1400" height="947" loading="lazy"></a>
+        </figure>
+        <figure class="shot" style="margin:0">
+          <div class="shot-bar"><i></i><i></i><i></i><b>Question generator · suggested quiz questions</b></div>
+          <a class="shot-img" href="img/nama-ai-questions.webp" target="_blank" rel="noopener"><img src="img/nama-ai-questions.webp" alt="Quiz editor with a panel of AI-suggested questions based on the lesson content, each with a Use button and an option to generate more" width="1400" height="773" loading="lazy"></a>
+        </figure>
+      </div>
+    </article>
+
+    <!-- Image AI -->
+    <article class="project" data-k="ai">
+      <div class="facts">
+        <div class="sub">SeedLab · AI-powered image search</div>
+        <h2>Image AI</h2>
+        <div class="roles"><span class="tag t-ai">AI</span></div>
+        <p>Type what you are looking for, in Arabic or English, and the service finds the matching images in an uploaded set and draws a box around the object or text it found.</p>
+        <ul class="role-list">
+          <li>Ranks images against the text query with CLIP embeddings.</li>
+          <li>Localizes matches with YOLO object detection and OCR.</li>
+          <li>Extended it with open-vocabulary detection, Arabic-to-English query translation and bilingual Arabic/English OCR.</li>
+          <li>Served as a FastAPI service on Hugging Face, with image description and background removal alongside search.</li>
+        </ul>
+        <div class="stack"><code>CLIP</code><code>YOLO</code><code>Tesseract OCR</code><code>FastAPI</code><code>PyTorch</code><code>Hugging Face</code></div>
+      </div>
+      <div class="evidence">
+        <figure class="shot" style="margin:0">
+          <div class="shot-bar"><i></i><i></i><i></i><b>Search workspace</b></div>
+          <a class="shot-img" href="img/imageai.webp" target="_blank" rel="noopener"><img src="img/imageai.webp" alt="Image.Ai workspace with upload area, text query, and Search, Describe image and Remove background actions, plus chat history in the sidebar" width="1600" height="1002" loading="lazy"></a>
+        </figure>
+        <div class="flow">
+          <div class="flow-title">Search pipeline</div>
+          <div class="steps">
+            <div class="step"><b>Query</b><span>Arabic or English text</span></div>
+            <div class="arrow">→</div>
+            <div class="step"><b>Translate</b><span>Arabic → English</span></div>
+            <div class="arrow">→</div>
+            <div class="step key"><b>CLIP ranking</b><span>Text–image similarity</span></div>
+            <div class="arrow">→</div>
+            <div class="step key"><b>YOLO + OCR</b><span>Box the object or text</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Hajj Data -->
+    <article class="project" data-k="pm ai">
+      <div class="facts">
+        <div class="sub">SeedLab · Dec 2025 – Feb 2026</div>
+        <h2>Hajj Data</h2>
+        <div class="roles"><span class="tag t-pm">Management</span><span class="tag t-ai">AI feature</span></div>
+        <p>A web dashboard that brings Hajj operational data into one place: countries, offices, seasons, hospitals and hotels. Delivered within a tight three-month deadline.</p>
+        <ul class="role-list">
+          <li>Served as Scrum Master: sprint planning, daily standups and backlog refinement.</li>
+          <li>Handled stakeholder communication and risk mitigation.</li>
+          <li>Led the addition of the Smart Analyzer, an AI feature that gives a quick analysis of one entity or answers free-text requests, such as comparing countries across seasons, with a summary, indicators and charts.</li>
+        </ul>
+        <div class="stack"><code>Scrum</code><code>Django</code><code>LLM</code><code>Hugging Face</code></div>
+      </div>
+      <div class="evidence">
+        <figure class="shot" style="margin:0">
+          <div class="shot-bar"><i></i><i></i><i></i><b>Countries analysis dashboard</b></div>
+          <a class="shot-img" href="img/hajj-countries.webp" target="_blank" rel="noopener"><img src="img/hajj-countries.webp" alt="Hajj Data countries analysis with filters for year, season type, continent and country, and tables of top countries by population and area" width="1600" height="841" loading="lazy"></a>
+        </figure>
+        <figure class="shot" style="margin:0">
+          <div class="shot-bar"><i></i><i></i><i></i><b>Smart Analyzer · AI feature</b></div>
+          <a class="shot-img" href="img/hajj-analyzer.webp" target="_blank" rel="noopener"><img src="img/hajj-analyzer.webp" alt="Smart Analyzer page with a quick single-entity AI analysis and a free-text box to ask the AI agent for comparisons" width="1600" height="880" loading="lazy"></a>
+        </figure>
+      </div>
+    </article>
+
+    <!-- Graduation -->
+    <article class="project" data-k="ai">
+      <div class="facts">
+        <div class="sub">Graduation project · Team · 2026</div>
+        <h2>Spoof-Aware Speech Age Verification</h2>
+        <div class="roles"><span class="tag t-ai">AI</span></div>
+        <p>Classifies a speaker in online voice chat as a minor or an adult from their voice, and stays reliable when the audio is noisy or faked with TTS, voice conversion or replay.</p>
+        <ul class="role-list">
+          <li>Fine-tuned WavLM with LoRA on Common Voice, MyST and VoxCeleb.</li>
+          <li>Built speaker-level splits and generated spoofed audio for training and testing.</li>
+          <li>Added noise augmentation and VAD filtering for robustness.</li>
+        </ul>
+        <div class="stack"><code>WavLM</code><code>LoRA</code><code>PyTorch</code><code>TTS</code><code>Voice conversion</code></div>
+        <p><a href="https://github.com/ArwaFadaaq/Robust-Spoof-Aware-Speech-Based-Age-Verification-for-Online-Voice-Chat" target="_blank" rel="noopener">View the repository →</a></p>
+      </div>
+      <div class="evidence">
+        <div class="flow">
+          <div class="flow-title">Training pipeline</div>
+          <div class="steps">
+            <div class="step"><b>Datasets</b><span>Common Voice · MyST · VoxCeleb</span></div>
+            <div class="arrow">→</div>
+            <div class="step"><b>Prepare</b><span>Speaker splits · VAD · noise</span></div>
+            <div class="arrow">→</div>
+            <div class="step"><b>Spoof attacks</b><span>TTS · voice conversion · replay</span></div>
+            <div class="arrow">→</div>
+            <div class="step key"><b>WavLM + LoRA</b><span>Minor / adult classifier</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Co-op -->
+    <article class="project" data-k="pm">
+      <div class="facts">
+        <div class="sub">SeedLab · Jan 2026 – present</div>
+        <h2>Co-op Training Supervision</h2>
+        <div class="roles"><span class="tag t-pm">Management</span></div>
+        <p>Supervising 10+ co-op trainees from Umm Al-Qura University across AI, front-end and back-end tracks.</p>
+        <ul class="role-list">
+          <li>Own each trainee's plan, writing weekly plans with tasks, deliverables and dates.</li>
+          <li>Onboarding, task breakdown and regular feedback sessions.</li>
+          <li>Mentoring on technical skills and professional development.</li>
+        </ul>
+      </div>
+      <div class="evidence">
+        <figure class="shot" style="margin:0">
+          <div class="shot-bar"><i></i><i></i><i></i><b>Example weekly plan (names hidden)</b></div>
+          <a class="shot-img" href="img/hajj-plan.webp" target="_blank" rel="noopener"><img src="img/hajj-plan.webp" alt="Weekly trainee plan for Hajj Data: documenting the Smart Analyzer on Hugging Face and starting back-end work in Django, with tasks per day" width="820" height="890" loading="lazy"></a>
+        </figure>
+      </div>
+    </article>
+
+  </main>
+
+  <section class="skills" aria-label="Skills">
+    <div><h3><span class="tag t-ai">AI / ML</span></h3>
+      <ul><li>Speech processing, WavLM, Whisper</li><li>LLMs, CLIP, YOLO, OCR</li><li>Fine-tuning with LoRA</li><li>Evaluation: WER, RTF, accuracy</li><li>Python, PyTorch, FastAPI, Hugging Face</li></ul></div>
+    <div><h3><span class="tag t-fe">Front-End</span></h3>
+      <ul><li>React</li><li>JavaScript</li><li>HTML, CSS</li><li>Integrating AI features into interfaces</li></ul></div>
+    <div><h3><span class="tag t-pm">Management</span></h3>
+      <ul><li>Agile / Scrum</li><li>Project planning</li><li>Team leadership</li><li>Mentoring trainees</li></ul></div>
+  </section>
+
+  <footer class="foot">
+    <span>Kawthr Adel Bawazir · AI Engineer, Front-End Developer, Scrum Master</span>
+    <span>Arabic · English</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  // Filter
+  var chips = document.querySelectorAll('.chip');
+  var cards = document.querySelectorAll('.project');
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      var f = c.dataset.f;
+      chips.forEach(function(x){ x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+      cards.forEach(function(p){ p.hidden = !(f === 'all' || p.dataset.k.split(' ').indexOf(f) > -1); });
+    });
+  });
+
+  // Copy email
+  var btn = document.getElementById('copyBtn');
+  btn.addEventListener('click', function(){
+    var t = document.getElementById('email').textContent;
+    function sel(){ var r = document.createRange(); r.selectNodeContents(document.getElementById('email')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected, press Ctrl+C'; }
+    try {
+      navigator.clipboard.writeText(t).then(function(){ btn.textContent = 'Copied'; setTimeout(function(){ btn.textContent = 'Copy email'; }, 1600); }, sel);
+    } catch (e) { sel(); }
+  });
+
+  // Speech waveform motif
+  var cv = document.getElementById('wave');
+  function draw(){
+    var dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+    cv.width = w * dpr; cv.height = h * dpr;
+    var g = cv.getContext('2d'); g.scale(dpr, dpr);
+    var cs = getComputedStyle(document.documentElement);
+    var cols = [cs.getPropertyValue('--ai').trim(), cs.getPropertyValue('--fe').trim(), cs.getPropertyValue('--pm').trim()];
+    var bars = Math.floor(w / 5), mid = h / 2, seed = 7;
+    function rnd(){ seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    for (var i = 0; i < bars; i++){
+      var x = i * 5, t = i / bars;
+      var env = Math.pow(Math.sin(Math.PI * ((t * 3) % 1)), 1.4) * (0.35 + 0.65 * rnd());
+      var a = Math.max(1.5, env * (h / 2 - 2));
+      g.fillStyle = cols[Math.min(2, Math.floor(t * 3))];
+      g.globalAlpha = 0.85;
+      g.fillRect(x, mid - a, 3, a * 2);
+    }
+  }
+  draw();
+  window.addEventListener('resize', draw);
+  if (window.matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+})();
+</script>
+
+</body>
+</html>
